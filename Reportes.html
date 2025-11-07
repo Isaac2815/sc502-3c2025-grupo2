@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoVigía - Reporte de Incidentes</title>
+    <link rel="stylesheet" href="estilos.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header>
+        <h1>🌿 EcoVigía - Reporte de Incidentes</h1>
+        <button onclick="window.location.href='EcoVigia.html'" class="boton-regresar">⬅️ Regresar</button>
+    </header>
+
+    <main>
+        <section class="formulario-reporte">
+            <h2>Registrar Nuevo Incidente</h2>
+            <form id="reporteForm">
+                <label for="zona">Zona:</label>
+                <select id="zona" required>
+                    <option value="">Seleccione una zona</option>
+                    <option value="Pacífico">Pacífico</option>
+                    <option value="Caribe">Caribe</option>
+                    <option value="Central">Central</option>
+                </select>
+
+                <label for="tipo">Tipo de contaminación:</label>
+                <select id="tipo" required>
+                    <option value="">Seleccione tipo</option>
+                    <option value="Plástico">Plástico</option>
+                    <option value="Químico">Químico</option>
+                    <option value="Orgánico">Orgánico</option>
+                </select>
+
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" placeholder="Describa brevemente el incidente..." required></textarea>
+
+                <label for="foto">Subir Foto:</label>
+                <input type="file" id="foto" accept="image/*">
+
+                <label for="ubicacion">Ubicación exacta:</label>
+                <input type="text" id="ubicacion" placeholder="Ej: Río Virilla, San José" required>
+
+                <button type="submit">📤 Enviar Reporte</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 EcoVigía | Módulo de Reportes</p>
+    </footer>
+</body>
+</html>
