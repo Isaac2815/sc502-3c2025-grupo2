@@ -3,53 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoVigía - Reporte de Incidentes</title>
-    <link rel="stylesheet" href="estilos.css">
-    <script defer src="script.js"></script>
+    <title>EcoVigía - Registrar Incidente</title>
+    <link rel="stylesheet" href="estilos.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #248f80, #1b685c);
+            color: #1b685c;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .formulario-reporte {
+            max-width: 600px;
+            margin: 30px auto;
+            background: #e0f7fa;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            width: 90%;
+        }
+
+        .formulario-reporte h2 {
+            text-align: center;
+            color: #1b685c;
+            margin-bottom: 25px;
+        }
+
+        .formulario-reporte label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+            color: #1b685c;
+        }
+
+        .formulario-reporte input,
+        .formulario-reporte select,
+        .formulario-reporte textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #b2dfdb;
+            border-radius: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            background-color: #f0fdf0;
+        }
+        
+        .formulario-reporte button {
+            margin-top: 20px;
+            background-color: #00796b;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+
+        .formulario-reporte button:hover {
+            background-color: #004d40;
+        }
+
+        #mapaReporte {
+            height: 350px;
+            border-radius: 8px;
+            border: 1px solid #b2dfdb;
+            margin-top: 5px;
+            z-index: 1;
+        }
+        
+        .leaflet-control-geocoder {
+            margin-top: 10px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 6px;
+        }
+        
+        /* Estilos para el nuevo botón de regreso */
+        .btn-regresar {
+            background-color: #607d8b; /* Gris azulado para diferenciarse del botón de envío */
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-align: center;
+            display: block;
+            margin-bottom: 15px;
+            text-decoration: none; /* Quitar subrayado del enlace */
+        }
+
+        .btn-regresar:hover {
+            background-color: #455a64;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>🌿 EcoVigía - Reporte de Incidentes</h1>
-        <button onclick="window.location.href='EcoVigia.html'" class="boton-regresar"> Regresar</button>
-    </header>
-
-    <main>
-        <section class="formulario-reporte">
-            <h2>Registrar Nuevo Incidente</h2>
-            <form id="reporteForm">
-                <label for="zona">Zona:</label>
-                <select id="zona" required>
-                    <option value="">Seleccione una zona</option>
-                    <option value="Pacífico">Pacífico</option>
-                    <option value="Caribe">Caribe</option>
-                    <option value="Central">Central</option>
+    
+    <div class="formulario-reporte">
+        <h2><i class="fas fa-exclamation-triangle"></i> Registrar Nuevo Incidente</h2>
+        
+        <a href="EcoVigia.html" class="btn-regresar"><i class="fas fa-arrow-left"></i> Regresar a EcoVigía</a>
+        
+        <form id="reporteForm" action="procesar_reporte.php" method="POST" enctype="multipart/form-data">
+            
+            <div class="mb-3">
+                <label for="zona">Provincia:</label>
+                <select id="zona" name="zona" required>
+                    <option value="">Seleccione la provincia</option>
+                    <option value="san-jose">San José</option>
+                    <option value="alajuela">Alajuela</option>
+                    <option value="cartago">Cartago</option>
+                    <option value="heredia">Heredia</option>
+                    <option value="guanacaste">Guanacaste</option>
+                    <option value="puntarenas">Puntarenas</option>
+                    <option value="limon">Limón</option>
                 </select>
+            </div>
 
-                <label for="tipo">Tipo de contaminación:</label>
-                <select id="tipo" required>
+            <div class="mb-3">
+                <label for="tipo_contaminacion">Tipo de contaminación:</label>
+                <select id="tipo_contaminacion" name="tipo_contaminacion" required>
                     <option value="">Seleccione tipo</option>
-                    <option value="Plástico">Plástico</option>
-                    <option value="Químico">Químico</option>
-                    <option value="Orgánico">Orgánico</option>
+                    <option value="plastico">Plástico</option>
+                    <option value="quimico">Químico</option>
+                    <option value="organico">Orgánico</option>
+                    <option value="otros">Otros</option>
                 </select>
-
+            </div>
+            
+            <div class="mb-3">
                 <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion" placeholder="Describa brevemente el incidente..." required></textarea>
+                <textarea id="descripcion" name="descripcion" rows="4" placeholder="Describa brevemente el incidente..." required></textarea>
+            </div>
 
+            <div class="mb-3">
                 <label for="foto">Subir Foto:</label>
-                <input type="file" id="foto" accept="image/*">
+                <input type="file" class="form-control" id="foto" name="foto" accept="image/*" required>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label d-block">Ubicación exacta (Busque y marque en el mapa):</label>
+                <div id="mapaReporte"></div>
+                <div class="form-text mt-2 text-center" style="color: #00796b; font-weight: bold;">
+                    Busque un lugar o haga clic en el punto exacto para confirmar la ubicación.
+                </div>
+            </div>
 
-                <label for="ubicacion">Ubicación exacta:</label>
-                <input type="text" id="ubicacion" placeholder="Ej: Río Virilla, San José" required>
+            <input type="hidden" id="latitud" name="latitud" required>
+            <input type="hidden" id="longitud" name="longitud" required>
 
-                <button type="submit"> Enviar Reporte</button>
-            </form>
-        </section>
-    </main>
+            <button type="submit" id="btnEnviarReporte"><i class="fas fa-paper-plane"></i> Enviar Reporte</button>
+        </form>
+    </div>
 
     <footer>
-        <p>© 2025 EcoVigía | Módulo de Reportes</p>
+        <div class="footer-content" style="text-align: center; padding: 10px; color: #fff;">
+            <p>© 2025 EcoVigía | Módulo de Reportes</p>
+        </div>
     </footer>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+    <script>
+        const COSTA_RICA_CENTER = [9.9333, -84.0833];
+        const MAP_ZOOM = 9;
+
+        const map = L.map('mapaReporte').setView(COSTA_RICA_CENTER, MAP_ZOOM);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        let marker = null; 
+
+        function updateMarker(lat, lng, centerMap = true) {
+            const fixedLat = lat.toFixed(6);
+            const fixedLng = lng.toFixed(6);
+
+            if (marker !== null) {
+                map.removeLayer(marker);
+            }
+
+            marker = L.marker([fixedLat, fixedLng]).addTo(map)
+                .bindPopup(`Ubicación seleccionada:<br>Lat: ${fixedLat}<br>Lng: ${fixedLng}`)
+                .openPopup();
+
+            document.getElementById('latitud').value = fixedLat;
+            document.getElementById('longitud').value = fixedLng;
+            
+            if (centerMap) {
+                map.setView([fixedLat, fixedLng], map.getZoom() > 14 ? map.getZoom() : 14); 
+            }
+        }
+
+        const geocoder = L.Control.geocoder({
+            defaultMarkGeocode: false,
+            placeholder: 'Ej: Playa Hermosa, Talamanca, etc.',
+            errorMessage: 'Lugar no encontrado en Costa Rica. Pruebe otro nombre.',
+            geocodingQueryParams: {
+                countrycodes: 'cr'
+            }
+        }).on('markgeocode', function(e) {
+            const coords = e.geocode.center;
+            updateMarker(coords.lat, coords.lng, true);
+        }).addTo(map);
+
+        map.on('click', function(e) {
+            const lat = e.latlng.lat;
+            const lng = e.latlng.lng;
+            updateMarker(lat, lng, false);
+        });
+
+        setTimeout(() => {
+            map.invalidateSize();
+        }, 100);
+    </script>
 </body>
 </html>
 
