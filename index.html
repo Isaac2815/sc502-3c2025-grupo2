@@ -25,7 +25,7 @@
             
             <h3>Iniciar Sesión</h3>
             
-            <form id="loginForm">
+            <form id="loginForm" action="procesar_login.php" method="POST">
                 <div class="mb-3">
                     <label for="usuario" class="form-label">Usuario</label>
                     <div class="input-group">
@@ -51,7 +51,7 @@
                 
                 <div class="enlaces">
                     <p><a href="#" id="olvidoContrasenna">¿Olvidaste tu contraseña?</a></p>
-                    <p>¿No tienes cuenta? <a href="../avance2/registro/registro.html">Crear cuenta nueva</a></p>
+                    <p>¿No tienes cuenta? <a href="registro.html">Crear cuenta nueva</a></p>
                 </div>
                 
                 <div class="divider">
@@ -72,6 +72,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../assets/css/js/login.js"></script>
-</body>
+    </body>
 </html>
