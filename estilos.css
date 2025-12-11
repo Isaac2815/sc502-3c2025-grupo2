@@ -155,7 +155,7 @@ footer {
 .formulario-reporte button:hover {
     background-color: #004d40;
 }
-/* ======= NUEVO BOTÓN EN EL MENÚ ======= */
+
 .menu-links li a {
     text-decoration: none;
     color: #a7ffeb;
@@ -167,3 +167,4 @@ footer {
     color: #ffffff;
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
+
