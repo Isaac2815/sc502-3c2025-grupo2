@@ -1,4 +1,4 @@
-/* ======== ESTILOS GENERALES ======== */
+
 body {
     margin: 0;
     padding: 0;
@@ -10,7 +10,7 @@ body {
     flex-direction: column;
 }
 
-/* ======== MENÚ SUPERIOR ======== */
+
 header {
     background: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(5px);
@@ -52,7 +52,7 @@ header {
     color: #d1f8f3;
 }
 
-/* ======== CONTENIDO CENTRAL ======== */
+
 .contenido-central {
     flex: 1;
     display: flex;
@@ -60,7 +60,7 @@ header {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding-top: 100px; /* Espacio por el menú fijo */
+    padding-top: 100px; 
 }
 
 .contenido-central h1 {
@@ -75,7 +75,7 @@ header {
     max-width: 600px;
 }
 
-/* ======== BOTÓN CENTRAL ======== */
+
 .boton-accion {
     background-color: #ffffff;
     color: hsl(124, 55%, 24%);
@@ -93,10 +93,11 @@ header {
     transform: scale(1.05);
 }
 
-/* ======== PIE DE PÁGINA ======== */
+
 footer {
     background-color: rgba(0, 0, 0, 0.2);
     text-align: center;
     padding: 10px;
     font-size: 0.9em;
 }
+
