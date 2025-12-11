@@ -3,35 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoVigía - Cuidemos Nuestros Ríos y Playas</title>
-    <link rel="stylesheet" href="diseño.css">
-    <script defer src="script.js"></script>
+    <title>EcoVigía | Monitoreo Ambiental</title>
+    <link rel="stylesheet" href="estilos.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        
+        body {
+            background-color: #e8f5e9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #1e8449;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4caf50;
+            padding: 15px 50px;
+            color: white;
+        }
+        .navbar .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+        .navbar .nav-links {
+            list-style: none;
+            display: flex;
+        }
+        .navbar .nav-links li a {
+            color: white;
+            text-decoration: none;
+            padding: 0 15px;
+            transition: color 0.3s;
+        }
+        .navbar .nav-links li a:hover {
+            color: #dcedc8;
+        }
+        
+        .hero-header {
+            background-color: #66bb6a;
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+        .hero-header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        .hero-header p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .boton-principal {
+            background-color: #1e8449;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background-color 0.3s, transform 0.3s;
+            border: 2px solid #1e8449;
+            display: inline-block;
+        }
+        .boton-principal:hover {
+            background-color: white;
+            color: #1e8449;
+            transform: scale(1.05);
+        }
+
+        .seccion-mision {
+            padding: 80px 0;
+            background-color: #e8f5e9;
+            text-align: center;
+        }
+        .seccion-mision h2 {
+            font-size: 2.5em;
+            color: #1e8449;
+            margin-bottom: 20px;
+        }
+        .seccion-mision p {
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #1e8449;
+        }
+        .objetivos-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .objetivo-card {
+            width: 300px;
+            padding: 25px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .objetivo-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        .objetivo-card i {
+            font-size: 3.5em;
+            color: #4caf50;
+            margin-bottom: 15px;
+        }
+        .objetivo-card h3 {
+            font-size: 1.4em;
+            color: #1e8449;
+            margin-bottom: 10px;
+        }
+        .objetivo-card p {
+            color: #388e3c;
+            margin-bottom: 0;
+        }
+        
+        .modulo-educativo {
+            padding: 60px 0;
+            background-color: white;
+            text-align: center;
+            color: #1e8449;
+        }
+        .modulo-educativo h2 {
+            font-size: 2em;
+            color: #4caf50;
+            margin-bottom: 15px;
+        }
+        .modulo-educativo h4 {
+             font-size: 1.3em;
+            margin-top: 25px;
+            color: #1e8449;
+        }
+        .modulo-educativo ul {
+            list-style: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: left;
+            border: 1px solid #dcedc8;
+            border-radius: 8px;
+            background-color: #f0fdf0;
+        }
+        .modulo-educativo ul li {
+            padding: 10px 20px;
+            border-bottom: 1px solid #dcedc8;
+            color: #388e3c;
+        }
+        .modulo-educativo ul li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Nuevos estilos para la sección de Integraciones */
+        .seccion-integraciones {
+            padding: 60px 20px;
+            background-color: #dcedc8;
+            text-align: center;
+            color: #1e8449;
+        }
+        .seccion-integraciones h2 {
+            font-size: 2em;
+            color: #1e8449;
+            margin-bottom: 30px;
+        }
+        .integracion-lista {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .integracion-card {
+            width: 300px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .integracion-card:hover {
+            transform: scale(1.05);
+        }
+        .integracion-card i {
+            font-size: 3em;
+            color: #388e3c;
+            margin-bottom: 15px;
+        }
+        .integracion-card h3 {
+            font-size: 1.3em;
+            color: #4caf50;
+            margin-bottom: 10px;
+        }
+        .integracion-card p {
+            color: #1e8449;
+            font-size: 0.95em;
+        }
+
+        
+        footer {
+            background-color: #388e3c;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
 </head>
 <body>
-    <!-- ======= MENÚ SUPERIOR ======= -->
     <header>
-        <nav class="menu">
+        <nav class="navbar">
             <div class="logo">EcoVigía</div>
-            <ul class="menu-links">
-                
-                <li><a href="index.html">Perfil</a></li>
-                <li><a href="reportes.html">Realizar Reporte</a></li>
-                <li><a href="informes.html">Informes</a></li>
+            <ul class="nav-links">
+                <li><a href="EcoVigia.html">Inicio</a></li>
+                <li><a href="Reportes.html">Reportar Incidente</a></li>
+                <li><a href="informes.html">Informes y Datos</a></li>
+                <li><a href="index.html">Cerrar Sesión</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- ======= SECCIÓN PRINCIPAL ======= -->
-    <main class="contenido-central">
-        <h1>EcoVigía</h1>
-        <p>“Vigilamos juntos la pureza de nuestros ríos y playas”</p>
-        <button class="boton-accion" onclick="window.location.href='reportes.html'">Comenzar</button>
+    <main>
+        <section class="hero-header">
+            <div class="hero-content">
+                <h1>Vigilancia Colaborativa para un Ecosistema Saludable</h1>
+                <p>"Vigilamos juntos la pureza de nuestros ríos y playas."</p>
+                <a href="Reportes.html" class="boton-principal">Comenzar a Reportar</a>
+            </div>
+        </section>
+        
+        <section class="seccion-mision">
+            <div class="container">
+                <h2>Nuestra Misión</h2>
+                <p>EcoVigía es la plataforma ciudadana de monitoreo ambiental dedicada a la protección de los ecosistemas acuáticos de nuestra región. Utilizamos la tecnología para transformar la acción individual en una fuerza colectiva que exige transparencia y promueve la sostenibilidad. Nuestro objetivo es ser los ojos del ambiente en cada rincón.</p>
+                
+                <div class="objetivos-grid">
+                    
+                    <div class="objetivo-card">
+                        <i class="fas fa-satellite-dish"></i>
+                        <h3>Monitoreo en Tiempo Real</h3>
+                        <p>Centralizamos reportes de contaminación para ofrecer una visualización precisa y oportuna de los incidentes ambientales en zonas clave.</p>
+                    </div>
+
+                    <div class="objetivo-card">
+                        <i class="fas fa-users-cog"></i>
+                        <h3>Acción Ciudadana</h3>
+                        <p>Empoderamos a la comunidad para que participe activamente en la vigilancia, convirtiendo cada reporte en una herramienta de cambio.</p>
+                    </div>
+
+                    <div class="objetivo-card">
+                        <i class="fas fa-handshake"></i>
+                        <h3>Transparencia y Colaboración</h3>
+                        <p>Facilitamos la comunicación de datos verificados a las autoridades competentes para acelerar las respuestas y soluciones a problemas críticos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="modulo-educativo">
+            <div class="container">
+                <h2>Módulo Educativo y de Comunidad</h2>
+                <i class="fas fa-graduation-cap" style="font-size: 3em; color: #4caf50;"></i>
+                <h4>Espacio destinado a la sensibilización y participación ambiental:</h4>
+                
+                <ul>
+                    <li><i class="fas fa-feather-alt" style="margin-right: 10px;"></i> Publicación de artículos, guías y campañas de limpieza</li>
+                    <li><i class="fas fa-comments" style="margin-right: 10px;"></i> Foro de discusión entre ciudadanos y expertos</li>
+                    <li><i class="fas fa-university" style="margin-right: 10px;"></i> Enlace con programas educativos de instituciones o municipalidades</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="seccion-integraciones">
+            <h2>APIs Institucionales y Datos Abiertos</h2>
+            <div class="integracion-lista">
+                
+                <div class="integracion-card">
+                    <i class="fas fa-network-wired"></i>
+                    <h3>APIs Institucionales (MINAE/SINAC)</h3>
+                    <p>Conexión directa con APIs de entidades gubernamentales (como MINAE/SINAC) para compartir datos verificados de monitoreo y agilizar acciones regulatorias.</p>
+                </div>
+
+                <div class="integracion-card">
+                    <i class="fas fa-envelope-open-text"></i>
+                    <h3>Notificaciones Automáticas</h3>
+                    <p>Integración con servicios de correo o mensajería para el envío de alertas y notificaciones automáticas a usuarios y autoridades sobre nuevos incidentes críticos.</p>
+                </div>
+            </div>
+        </section>
+        
     </main>
 
-    <!-- ======= PIE DE PÁGINA ======= -->
     <footer>
-        <p>© 2025 EcoVigía | Plataforma Ciudadana de Monitoreo Ambiental</p>
+        <div class="footer-content">
+            <p>© 2025 EcoVigía | Plataforma Ciudadana de Monitoreo Ambiental</p>
+        </div>
     </footer>
 </body>
 </html>
-
