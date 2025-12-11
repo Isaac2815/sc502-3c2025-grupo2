@@ -3,13 +3,26 @@
 $archivo_json = 'reportes.json';
 
 
+$latitud = isset($_POST['latitud']) ? $_POST['latitud'] : null;
+$longitud = isset($_POST['longitud']) ? $_POST['longitud'] : null;
+
+
+if ($latitud !== null && $longitud !== null) {
+    
+    $ubicacion_final = "Lat: " . $latitud . ", Lng: " . $longitud;
+} else {
+    $ubicacion_final = "Coordenadas no capturadas";
+}
+
 
 $nuevo_reporte = array(
     'fecha' => date('Y-m-d H:i:s'),
     'zona' => isset($_POST['zona']) ? $_POST['zona'] : 'Desconocida',
-    'tipo' => isset($_POST['tipo']) ? $_POST['tipo'] : 'Otro',
+    
+    'tipo' => isset($_POST['tipo_contaminacion']) ? $_POST['tipo_contaminacion'] : 'Otro',
     'descripcion' => isset($_POST['descripcion']) ? $_POST['descripcion'] : 'Sin descripción',
-    'ubicacion' => isset($_POST['ubicacion']) ? $_POST['ubicacion'] : 'Ubicación no especificada'
+    
+    'ubicacion' => $ubicacion_final 
 );
 
 
