@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 genero: genero ? genero.value : 'no seleccionado', terminos 
             });
 
-            // Validaciones
+            
             if (!nombre || !correo || !usuario || !contrasenna || !confirmar || !fecha || !genero) {
                 console.log('Campos vacíos detectados');
                 Swal.fire({
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // Simulación de registro exitoso
+            
             Swal.fire({
                 icon: 'success',
                 title: 'Registro exitoso',
@@ -106,14 +106,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 timer: 3000,
                 timerProgressBar: true
             }).then(() => {
-                // Redirección al login después del registro
+                
                 console.log('Redireccionando al login...');
                 window.location.href = 'index.html';
             });
         });
     }
 
-    // Validación de términos y condiciones
+    
     const enlaceTerminos = document.querySelector('.enlace-terminos');
     if (enlaceTerminos) {
         enlaceTerminos.addEventListener('click', function(e) {
