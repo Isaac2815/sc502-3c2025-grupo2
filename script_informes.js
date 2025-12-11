@@ -1,10 +1,24 @@
-// ======= script_informes.js =======
-
-// Cargar reportes desde localStorage
-function cargarReportes() {
-    const reportes = JSON.parse(localStorage.getItem("reportes")) || [];
+async function cargarReportes() {
     const tabla = document.querySelector("#tablaReportes tbody");
     tabla.innerHTML = "";
+
+    let reportes = [];
+    try {
+        
+        const response = await fetch("reportes_api.php?accion=cargar");
+        
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        
+        reportes = await response.json(); 
+        
+    } catch (error) {
+        console.error("Error al cargar reportes:", error);
+       
+        alert(" Error: No se pudieron cargar los reportes desde el servidor.");
+        return;
+    }
 
     reportes.forEach((r, index) => {
         const fila = document.createElement("tr");
@@ -18,22 +32,47 @@ function cargarReportes() {
         tabla.appendChild(fila);
     });
 
-    // Asignar eventos de borrado
+
     document.querySelectorAll(".btn-borrar").forEach(btn => {
         btn.addEventListener("click", borrarReporte);
     });
 }
 
-// Borrar reporte por índice
-function borrarReporte(e) {
+
+async function borrarReporte(e) {
     const index = e.target.getAttribute("data-index");
-    let reportes = JSON.parse(localStorage.getItem("reportes")) || [];
-    reportes.splice(index, 1);
-    localStorage.setItem("reportes", JSON.stringify(reportes));
-    cargarReportes();
+    
+    
+    if (!confirm(`¿Está seguro de que desea borrar el reporte con índice ${index}?`)) {
+        return;
+    }
+
+    try {
+        const formData = new FormData();
+        formData.append('accion', 'borrar');
+        formData.append('index', index);
+
+        
+        const response = await fetch("reportes_api.php", {
+            method: "POST",
+            body: formData, 
+        });
+
+        const data = await response.json();
+
+        if (data.exito) {
+            alert(" Reporte borrado correctamente.");
+            cargarReportes(); 
+        } else {
+            alert(` Error al borrar reporte: ${data.mensaje}`);
+        }
+    } catch (error) {
+        console.error("Error al borrar reporte:", error);
+        alert(" Error de conexión al servidor para borrar.");
+    }
 }
 
-// Filtrar reportes según los campos
+
 document.querySelector("#filtroForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -47,7 +86,8 @@ document.querySelector("#filtroForm").addEventListener("submit", function (e) {
         const celdas = fila.querySelectorAll("td");
         const matchZona = zona === "todas" || celdas[1].textContent === zona;
         const matchTipo = tipo === "todos" || celdas[2].textContent === tipo;
-        const matchFecha = !fecha || celdas[0].textContent === fecha;
+        
+        const matchFecha = !fecha || celdas[0].textContent === fecha; 
 
         if (matchZona && matchTipo && matchFecha) {
             fila.style.display = "";
@@ -57,7 +97,7 @@ document.querySelector("#filtroForm").addEventListener("submit", function (e) {
     });
 });
 
-// Exportar a CSV
+
 document.querySelector("#btnExportar").addEventListener("click", () => {
     const filasVisibles = Array.from(document.querySelectorAll("#tablaReportes tbody tr"))
         .filter(f => f.style.display !== "none");
@@ -69,7 +109,8 @@ document.querySelector("#btnExportar").addEventListener("click", () => {
 
     let csvContent = "Fecha,Zona,Tipo,Descripción\n";
     filasVisibles.forEach(fila => {
-        const celdas = Array.from(fila.querySelectorAll("td")).slice(0, 4);
+        
+        const celdas = Array.from(fila.querySelectorAll("td")).slice(0, 4); 
         const filaCSV = celdas.map(td => `"${td.textContent}"`).join(",");
         csvContent += filaCSV + "\n";
     });
