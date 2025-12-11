@@ -1,17 +1,20 @@
-// Por ahora el botón "Comenzar" solo muestra un mensaje animado
 document.addEventListener('DOMContentLoaded', () => {
     const boton = document.querySelector('.boton-accion');
 
-    boton.addEventListener('click', () => {
-        alert(' Bienvenido a EcoVigía: ¡Gracias por ser parte del cambio!');
-    });
+    if (boton) {
+        boton.addEventListener('click', () => {
+            alert(' Bienvenido a EcoVigía: ¡Gracias por ser parte del cambio!');
+        });
+    }
 });
-// ======== MÓDULO DE REPORTES ======== //
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const reporteForm = document.getElementById("reporteForm");
 
     if (reporteForm) {
-        reporteForm.addEventListener("submit", (e) => {
+        
+        reporteForm.addEventListener("submit", async (e) => {
             e.preventDefault();
 
             const zona = document.getElementById("zona").value;
@@ -20,31 +23,31 @@ document.addEventListener("DOMContentLoaded", () => {
             const ubicacion = document.getElementById("ubicacion").value;
             const fecha = new Date().toLocaleDateString("es-CR");
 
-            // Simular almacenamiento local (sin base de datos)
             const nuevoReporte = { fecha, zona, tipo, descripcion, ubicacion };
-            let reportes = JSON.parse(localStorage.getItem("reportes")) || [];
-            reportes.push(nuevoReporte);
-            localStorage.setItem("reportes", JSON.stringify(reportes));
+            
+            try {
+               
+                const response = await fetch("reportes_api.php?accion=guardar", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json", 
+                    },
+                    body: JSON.stringify(nuevoReporte), 
+                });
 
-            alert(" Reporte enviado correctamente.");
-            reporteForm.reset();
+                const data = await response.json();
+
+                if (data.exito) {
+                    alert(" Reporte enviado correctamente.");
+                    reporteForm.reset();
+                } else {
+                    alert(` Error al enviar reporte: ${data.mensaje}`);
+                }
+            } catch (error) {
+                console.error("Error de red o servidor:", error);
+                alert(" Error de conexión con el servidor. Asegúrese que XAMPP esté corriendo.");
+            }
         });
     }
-
-    // ======== MÓDULO DE INFORMES ======== //
-    const tablaReportes = document.querySelector("#tablaReportes tbody");
-    if (tablaReportes) {
-        const reportesGuardados = JSON.parse(localStorage.getItem("reportes")) || [];
-
-        reportesGuardados.forEach(rep => {
-            const fila = document.createElement("tr");
-            fila.innerHTML = `
-                <td>${rep.fecha}</td>
-                <td>${rep.zona}</td>
-                <td>${rep.tipo}</td>
-                <td>${rep.descripcion}</td>
-            `;
-            tablaReportes.appendChild(fila);
-        });
-    }
+    
 });
