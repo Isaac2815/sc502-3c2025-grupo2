@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoVigía - Generación de Informes</title>
+    <link rel="stylesheet" href="estilos.css">
+    <script defer src="script_informes.js"></script>
+</head>
+<body>
+    <header>
+        <h1> EcoVigía - Generación de Informes</h1>
+        
+        <button onclick="window.location.href='EcoVigia.html'" class="boton-regresar">Regresar</button>
+    </header>
+
+    <main>
+        <section class="filtros">
+            <h2>Filtrar Reportes</h2>
+            <form id="filtroForm">
+                <label for="zona">Zona:</label>
+                <select id="zona">
+                    <option value="todas">Todas</option>
+                    <option value="Pacífico">Pacífico</option>
+                    <option value="Caribe">Caribe</option>
+                    <option value="Central">Central</option>
+                </select>
+
+                <label for="tipo">Tipo de contaminación:</label>
+                <select id="tipo">
+                    <option value="todos">Todos</option>
+                    <option value="Plástico">Plástico</option>
+                    <option value="Químico">Químico</option>
+                    <option value="Orgánico">Orgánico</option>
+                </select>
+
+                <label for="fecha">Fecha:</label>
+                <input type="date" id="fecha">
+
+                <button type="submit">Aplicar Filtros</button>
+            </form>
+        </section>
+
+        <section class="tabla">
+            <h2>Resultados</h2>
+            <table id="tablaReportes">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Zona</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                        <th>Acción</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+            <button id="btnExportar">Exportar a CSV</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 EcoVigía | Módulo de Informes</p>
+    </footer>
+</body>
+</html>
