@@ -18,20 +18,26 @@
         <section class="filtros">
             <h2>Filtrar Reportes</h2>
             <form id="filtroForm">
-                <label for="zona">Zona:</label>
+                
+                <label for="zona">Provincia:</label>
                 <select id="zona">
-                    <option value="todas">Todas</option>
-                    <option value="Pacífico">Pacífico</option>
-                    <option value="Caribe">Caribe</option>
-                    <option value="Central">Central</option>
+                    <option value="todas">Todas las Provincias</option>
+                    <option value="san-jose">San José</option>
+                    <option value="alajuela">Alajuela</option>
+                    <option value="cartago">Cartago</option>
+                    <option value="heredia">Heredia</option>
+                    <option value="guanacaste">Guanacaste</option>
+                    <option value="puntarenas">Puntarenas</option>
+                    <option value="limon">Limón</option>
                 </select>
 
                 <label for="tipo">Tipo de contaminación:</label>
                 <select id="tipo">
                     <option value="todos">Todos</option>
-                    <option value="Plástico">Plástico</option>
-                    <option value="Químico">Químico</option>
-                    <option value="Orgánico">Orgánico</option>
+                    <option value="plastico">Plástico</option>
+                    <option value="quimico">Químico</option>
+                    <option value="organico">Orgánico</option>
+                    <option value="otros">Otros</option>
                 </select>
 
                 <label for="fecha">Fecha:</label>
@@ -47,7 +53,7 @@
                 <thead>
                     <tr>
                         <th>Fecha</th>
-                        <th>Zona</th>
+                        <th>Provincia</th>
                         <th>Tipo</th>
                         <th>Descripción</th>
                         <th>Acción</th> 
